@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Seferov\DotEnv;
 
-use function parse_ini_file;
-
 final class DotEnv
 {
     /**
@@ -27,12 +25,18 @@ final class DotEnv
      */
     public function asArray(): array
     {
-        $array = parse_ini_file($this->path);
-        if (!$array) {
-            throw new \Exception();
+        $file = fopen($this->path, 'r');
+        while (!feof($file)) {
+            $line = fgets($file);
+            if (is_string($line) && 0 !== strpos($line, '#')) {
+                $a = explode('=', trim($line));
+                $this->values[$a[0]] = $a[1];
+            }
         }
 
-        return $array;
+        fclose($file);
+
+        return $this->values ?? [];
     }
 
     public function add(string $key, string $value): void
