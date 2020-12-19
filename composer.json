@@ -1,0 +1,30 @@
+{
+    "name": "seferov/env-php",
+    "description": "Read/write on .env files",
+    "type": "library",
+    "require": {
+        "php": "^7.1 || ^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "vimeo/psalm": "^4.3",
+        "psalm/plugin-phpunit": "^0.15.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Seferov\\DotEnv\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Seferov\\DotEnv\\Tests\\": "tests/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Farhad Safarov",
+            "email": "farhad.safarov@gmail.com"
+        }
+    ]
+}
