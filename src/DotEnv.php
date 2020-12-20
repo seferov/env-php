@@ -28,7 +28,7 @@ final class DotEnv
         $file = fopen($this->path, 'r');
         while (!feof($file)) {
             $line = fgets($file);
-            if (is_string($line) && 0 !== strpos($line, '#')) {
+            if (is_string($line) && 0 !== strpos($line, '#') && strpos($line, '=') > 0) {
                 $a = explode('=', trim($line));
                 $this->values[$a[0]] = $a[1];
             }
