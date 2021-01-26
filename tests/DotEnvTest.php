@@ -88,4 +88,31 @@ EOT;
 
         $this->assertSame($expectedContent, file_get_contents(self::FILE_PATH));
     }
+
+    /**
+     * @covers \Seferov\DotEnv\DotEnv::overwriteFromEnv
+     */
+    public function testOverwriteFromEnv(): void
+    {
+        $content = <<<'EOD'
+FOO=BAR
+TOKEN=abc123abc
+
+EOD;
+
+        file_put_contents(self::FILE_PATH, $content);
+
+        $_SERVER['TOKEN'] = 'new_secret';
+
+        $dotEnv = new DotEnv(self::FILE_PATH);
+        $dotEnv->overwriteFromEnv();
+
+        $expectedContent = <<<EOT
+FOO=BAR
+TOKEN=new_secret
+
+EOT;
+
+        $this->assertSame($expectedContent, file_get_contents(self::FILE_PATH));
+    }
 }

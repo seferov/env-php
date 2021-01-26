@@ -70,4 +70,19 @@ final class DotEnv
             throw new WriteException();
         }
     }
+
+    public function overwriteFromEnv(): void
+    {
+        if (!$this->values) {
+            $this->values = $this->asArray();
+        }
+
+        foreach (($_ENV + $_SERVER) as $key => $value) {
+            if (isset($this->values[$key])) {
+                $this->values[$key] = $value;
+            }
+        }
+
+        $this->write();
+    }
 }
